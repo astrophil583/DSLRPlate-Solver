@@ -6,6 +6,7 @@ from skimage.morphology import remove_small_objects
 from astropy.io import fits
 import numpy as np
 
+# This is actually a very simple source extraction algorithm, it's based on percentile and sci-kit image tools. Needs improvement but it works fine.
 #TODO: consider using DAOStarFinder
 
 def detect_stars(image, blur_sigma=1.0, min_area=20):

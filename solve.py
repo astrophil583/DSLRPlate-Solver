@@ -32,7 +32,6 @@ def main(args):
         cache_directory="astrometry_cache",
         scales={6},
     )) as solver:
-        g_ra, g_dec = None, None
         if args.blind is False:
             o_ph = astrometry.PositionHint(
                                     ra_deg=coords[0],

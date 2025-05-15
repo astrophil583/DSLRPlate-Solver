@@ -21,7 +21,7 @@ def main(args):
         if (args.ra is not None and args.dec is not None):
             coords = coordConversion(args.ra, args.dec)
 
-    image = load_cr2_image("testfiles/sample.cr2")
+    image = load_cr2_image(args.input)
 
     stars = detect_stars(image)
 

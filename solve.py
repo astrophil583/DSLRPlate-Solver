@@ -1,4 +1,5 @@
 import argparse
+from types import SimpleNamespace
 from src.utility import queryForObject,coordConversion, load_cr2_image
 from src.detection import detect_stars, TakeBestKStars
 from astropy.coordinates import SkyCoord
@@ -25,7 +26,7 @@ def main(args):
 
     stars = detect_stars(image)
 
-    stars = TakeBestKStars(50,stars)
+    stars = TakeBestKStars(54,stars) #50 + 4 in the corners
 
     with astrometry.Solver(
     astrometry.series_5200.index_files(
@@ -70,3 +71,15 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(args)
+
+    # To use it as a library
+    def solve(input, ra, dec, target, r, blind = False):
+        args_o = SimpleNamespace(
+        input=input,
+        ra=ra,
+        dec=dec,
+        blind=blind,
+        target = target,
+        radius = r
+        )
+        main(args_o)

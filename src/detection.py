@@ -39,7 +39,24 @@ def detect_stars(image, blur_sigma=1.0, min_area=20):
         # print(f"Star at ({x:.1f}, {y:.1f}), area: {region.area}")
         stars.append((x, y))  # Note: (x, y) order
         brightness.append(region.mean_intensity * region.area)
-    brightness = np.array(brightness)
+
+    # Adding fake stars at the corners to give the correct image size to the solver. 
+    h, w = image.shape[:2]
+    corner_coords = [
+        (0, 0),
+        (w - 1, 0),
+        (0, h - 1),
+        (w - 1, h - 1),
+    ]
+
+    for coord in corner_coords:
+        stars.append(coord)
+        brightness.append(1e9)
+
+    stars = np.array(stars)
+    brightness = np.array(brightness) 
+
+
     return np.concatenate([np.array(stars), brightness[:,np.newaxis]],axis=1)
 
 def TakeBestKStars(K, stars):

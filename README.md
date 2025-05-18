@@ -40,6 +40,7 @@ the main argument must be of course the file path
 |Argument|Description    |
 |----|---|
 |`-r`|Changes the search radius (defaults to 2°)|
+|`-j`|Outputs json data|
 |`-h`|Shows help|
 
 ### Examples of usage with test data

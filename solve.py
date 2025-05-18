@@ -1,3 +1,4 @@
+import json
 import argparse
 from types import SimpleNamespace
 from src.utility import queryForObject,coordConversion, load_cr2_image
@@ -50,12 +51,33 @@ def main(args):
     )
     if solution.has_match():
         center = SkyCoord(ra=solution.best_match().center_ra_deg, dec=solution.best_match().center_dec_deg, unit=(u.deg, u.deg))
-        print("A solution has been found!")
-        print(f"Center RA   {center.ra.to_string(unit=u.hour, sep=':', precision=1)}")
-        print(f"Center DEC  {center.dec.to_string(unit=u.degree, sep=':', precision=1)}")
-        print(f"Pixel Scale {solution.best_match().scale_arcsec_per_pixel:.3f}\"/px")
-    else: 
-        print("A solution can't be found :( ")
+         
+    if args.json:
+        if solution.has_match():
+            result = {
+                "success": True,
+                "center": {
+                    "ra_deg": center.ra.deg,
+                    "ra_hms": center.ra.to_string(unit=u.hour, sep=':', precision=1),
+                    "dec_deg": center.dec.deg,
+                    "dec_dms": center.dec.to_string(unit=u.degree, sep=':', precision=1),
+                },
+                "pixel_scale_arcsec_per_px": solution.best_match().scale_arcsec_per_pixel
+            }
+        else:
+            result = {
+                "success": False,
+                "error": "Solution not found"
+            }
+        print(json.dumps(result, indent=4))
+    else:
+        if solution.has_match():
+            print("A solution has been found!")
+            print(f"Center RA   {center.ra.to_string(unit=u.hour, sep=':', precision=1)}")
+            print(f"Center DEC  {center.dec.to_string(unit=u.degree, sep=':', precision=1)}")
+            print(f"Pixel Scale {solution.best_match().scale_arcsec_per_pixel:.3f}\"/px")
+        else: 
+            print("A solution can't be found :( ")
 
     return None
 
@@ -69,6 +91,7 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--target", help="Use target hint (Simbad lookup)")
     parser.add_argument("-b", "--blind", action="store_true", help="Use blind solving (no RA/DEC hints)")
     parser.add_argument("-r", "--radius", default=2.0 ,help="Search radius [deg]", required=False)
+    parser.add_argument("-j", "--json", action="store_true", help="Outputs json data")
 
     args = parser.parse_args()
     main(args)

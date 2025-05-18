@@ -1,7 +1,7 @@
-numpy==2.2.5
-astropy==6.1.7
-rawpy==0.25.0
-matplotlib==3.10.3
-scikit-image==0.25.2
-astroquery==0.4.10
-astrometry==4.3.0
+numpy
+astropy
+rawpy
+matplotlib
+scikit-image
+astroquery
+astrometry

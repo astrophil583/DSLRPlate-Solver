@@ -28,33 +28,34 @@ def main(args):
 
     stars = TakeBestKStars(54,stars) #50 + 4 in the corners
 
-    with astrometry.Solver(
-    astrometry.series_5200.index_files(
-        cache_directory="astrometry_cache",
-        scales={6},
-    )) as solver:
-        if args.blind is False:
-            o_ph = astrometry.PositionHint(
-                                    ra_deg=coords[0],
-                                    dec_deg=coords[1],
-                                    radius_deg=args.radius,
-                                )
-        else:
-            o_ph = None
-        solution = solver.solve(
-                                stars=stars,
-                                size_hint=None,
-                                position_hint=o_ph,
-                                solution_parameters=astrometry.SolutionParameters(),
+    solver = astrometry.Solver(
+        astrometry.series_5200.index_files(
+            cache_directory="astrometry_cache",
+            scales={6},
         )
-        if solution.has_match():
-            center = SkyCoord(ra=solution.best_match().center_ra_deg, dec=solution.best_match().center_dec_deg, unit=(u.deg, u.deg))
-            print("A solution has been found!")
-            print(f"Center RA   {center.ra.to_string(unit=u.hour, sep=':', precision=1)}")
-            print(f"Center DEC  {center.dec.to_string(unit=u.degree, sep=':', precision=1)}")
-            print(f"Pixel Scale {solution.best_match().scale_arcsec_per_pixel:.3f}\"/px")
-        else: 
-            print("A solution can't be found :( ")
+    )
+    if args.blind is False:
+        o_ph = astrometry.PositionHint(
+                                ra_deg=coords[0],
+                                dec_deg=coords[1],
+                                radius_deg=args.radius,
+                            )
+    else:
+        o_ph = None
+    solution = solver.solve(
+                            stars=stars,
+                            size_hint=None,
+                            position_hint=o_ph,
+                            solution_parameters=astrometry.SolutionParameters(),
+    )
+    if solution.has_match():
+        center = SkyCoord(ra=solution.best_match().center_ra_deg, dec=solution.best_match().center_dec_deg, unit=(u.deg, u.deg))
+        print("A solution has been found!")
+        print(f"Center RA   {center.ra.to_string(unit=u.hour, sep=':', precision=1)}")
+        print(f"Center DEC  {center.dec.to_string(unit=u.degree, sep=':', precision=1)}")
+        print(f"Pixel Scale {solution.best_match().scale_arcsec_per_pixel:.3f}\"/px")
+    else: 
+        print("A solution can't be found :( ")
 
     return None
 

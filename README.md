@@ -72,5 +72,4 @@ Blind solve, fits output in the same directory, json output
 |`Pixel Scale`|"/px|
 ## Work in progress
 **Note:** This is a work in progress.<br>
-I've noticed a minor issue with the coordinate reference system  during point cloud generation, which may cause slight inaccuracies when calculating the actual image center.
-A fix is in progress.
+This library is optimized to work with pixel scales around 1 "/pixel. It should be enough for most of the amateur astronomy photos taken with dsrl. Let me know through Issues if you need an extension of the pxscale range.

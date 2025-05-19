@@ -9,7 +9,7 @@ import numpy as np
 # This is actually a very simple source extraction algorithm, it's based on percentile and sci-kit image tools. Needs improvement but it works fine.
 #TODO: consider using DAOStarFinder
 
-def detect_stars(image, blur_sigma=1.0, min_area=20):
+def detect_stars(image:np.ndarray, blur_sigma=1.0, min_area=20) -> np.ndarray:
     """
     Detect stars in a grayscale image.
     
@@ -59,6 +59,6 @@ def detect_stars(image, blur_sigma=1.0, min_area=20):
 
     return np.concatenate([np.array(stars), brightness[:,np.newaxis]],axis=1)
 
-def TakeBestKStars(K, stars):
+def TakeBestKStars(K:int, stars:np.ndarray):
     starsortedindices = np.argsort(stars[:,2])[::-1][:K]
     return stars[starsortedindices]

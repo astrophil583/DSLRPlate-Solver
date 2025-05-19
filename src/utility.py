@@ -7,7 +7,7 @@ import astropy.units as u
 from astroquery.simbad import Simbad
 import rawpy
 
-def load_image(filepath, green = False):
+def load_image(filepath:str, green = False):
     path = Path(filepath)
     ext = path.suffix.lower()
     if ext in ['.fits', '.fit', '.fts']:  # FITS file
@@ -73,7 +73,7 @@ def coordConversion(raHMS, decDMS):
     coord = SkyCoord(ra=raHMS, dec=decDMS, unit=(u.hourangle, u.deg))
     return [coord.ra.deg, coord.dec.deg]
     
-def queryForObject(name:str):
+def queryForObject(name:str) -> SkyCoord:
     try:
         result = Simbad.query_object(name)
         ra_str = result["RA"][0]        # e.g. '13 29 52.698'

@@ -36,8 +36,16 @@ the main argument must be of course the file path
 |Target Hint|`-t` NGC4406<br>(Simbad lookup)|
 |Blind| `-b`|
 
+### Output Settings
+|Arguments|Description|
+|---|---|
+|`-o`|Outputs a mono WCS solved fits (float32) <br> without argument it deafaults to the same path|
+|`-orgb`|Outputs a non standard RGB WCS solved fits (to be used with `-o` argument)|
+|`-g`|Works and outputs the G channel, better for photometry (to be used with `-o` argument)|
+
+
 ### Other arguments
-|Argument|Description    |
+|Argument|Description|
 |----|---|
 |`-r`|Changes the search radius (defaults to 2°)|
 |`-j`|Outputs json data|
@@ -45,14 +53,17 @@ the main argument must be of course the file path
 
 ### Examples of usage with test data
 ```bash
-python solve.py testfiles/sample.cr2 -t NGC4406
+python solve.py testfiles/sample.cr2 -t NGC4406 -o
 ```
+Target hint, fits output in the same directory
 ```bash
-python solve.py testfiles/sample.cr2 -ra 12h26m36s -dec 12d48m53s
+python solve.py testfiles/sample.cr2 -ra 12h26m36s -dec 12d48m53s -o -g
 ```
+Coords hint, fits output in the same directory, green channel
 ```bash
-python solve.py testfiles/sample.cr2 -b
+python solve.py testfiles/sample.cr2 -b -o -j
 ```
+Blind solve, fits output in the same directory, json output
 ## Output
 |Variable|Unit|
 |--|-|

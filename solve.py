@@ -2,8 +2,8 @@ import json
 import argparse
 from pathlib import Path
 from types import SimpleNamespace
-from src.utility import queryForObject,coordConversion, load_image, SaveToFITSwcs
-from src.detection import detect_stars, TakeBestKStars
+from .src.utility import queryForObject,coordConversion, load_image, SaveToFITSwcs
+from .src.detection import detect_stars, TakeBestKStars
 from astropy.coordinates import SkyCoord
 import astropy.units as u
 import astrometry
@@ -119,14 +119,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
 
-    # To use it as a library
-    def solve(input, ra, dec, target, r, blind = False):
-        args_o = SimpleNamespace(
-        input=input,
-        ra=ra,
-        dec=dec,
-        blind=blind,
-        target = target,
-        radius = r
-        )
-        main(args_o)
+# To use it as a library
+def solvefunc(input, ra, dec, target, r, blind = False):
+    args_o = SimpleNamespace(
+    input=input,
+    ra=ra,
+    dec=dec,
+    blind=blind,
+    target = target,
+    radius = r
+    )
+    main(args_o)

@@ -17,6 +17,7 @@ dependencies = [
     "scikit-image",
     "astroquery",
     "astrometry",
+    "exifread"
 ]
 
 [project.scripts]

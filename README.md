@@ -12,6 +12,8 @@ pip install git+https://github.com/astrophil583/DSLRPlate-Solver
 ```
 
 ## Usage
+> **_NOTE:_**  The code will download the catalog files into the `astrometry_cache` folder if not found. (Approx 300Mb) 
+
 The solver suppors a variety of RAW camera formats (it uses rawpy, built upon LibRaw, here the list of [supported cameras](https://www.libraw.org/supported-cameras))
 
 I left one test image (taken by a Canon 600D) into `testfiles/sample.cr2` it refers to NGC 4406

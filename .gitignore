@@ -4,3 +4,4 @@ astrometry_cache/
 *.ipynb
 TODO
 testfiles/
+**egg-info

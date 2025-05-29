@@ -3,3 +3,5 @@ astrometry_cache/
 **/__pycache__
 *.ipynb
 TODO
+testfiles/
+**egg-info

@@ -7,18 +7,8 @@ This is actually a PyPI astrometry (Astrometry.net) wrapper/tool to simply read 
 ## Installation
 ### Python & pip
 Of course you need Python and pip to be installed
-### Make a venv
-this is common while using PyPI packages in a controlled environment, they will be available only locally 
 ``` bash
-python -m venv venv
-(linux/macos) source venv/bin/activate
-(win) venv\Scripts\activate.bat
-```
-be sure to activate the virtual environment every time you use the script. Otherwise you can run the python executable directly inside the venv folder.
-### Install the requirements
-Install all the dependencies
-``` bash
-pip install -r requirements.txt
+pip install git+https://github.com/astrophil583/DSLRPlate-Solver
 ```
 
 ## Usage
@@ -53,15 +43,15 @@ the main argument must be of course the file path
 
 ### Examples of usage with test data
 ```bash
-python solve.py testfiles/sample.cr2 -t NGC4406 -o
+dslrplatesolver testfiles/sample.cr2 -t NGC4406 -o
 ```
 Target hint, fits output in the same directory
 ```bash
-python solve.py testfiles/sample.cr2 -ra 12h26m36s -dec 12d48m53s -o -g
+dslrplatesolver testfiles/sample.cr2 -ra 12h26m36s -dec 12d48m53s -o -g
 ```
 Coords hint, fits output in the same directory, green channel
 ```bash
-python solve.py testfiles/sample.cr2 -b -o -j
+dslrplatesolver testfiles/sample.cr2 -b -o -j
 ```
 Blind solve, fits output in the same directory, json output
 ## Output

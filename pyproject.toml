@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dslrplatesolver"
+version = "0.1.0"
+description = "Astrometric plate solver for DSLR RAW images"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+dependencies = [
+    "numpy",          
+    "astropy",
+    "rawpy",
+    "matplotlib",
+    "scikit-image",
+    "astroquery",
+    "astrometry",
+]
+
+[project.scripts]
+dslrplatesolver = "dslrplatesolver.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -2,8 +2,8 @@ import json
 import argparse
 from pathlib import Path
 from types import SimpleNamespace
-from .src.utility import queryForObject,coordConversion, load_image, SaveToFITSwcs
-from .src.detection import detect_stars, TakeBestKStars
+from src.utility import queryForObject,coordConversion, load_image, SaveToFITSwcs, get_acquisition_time
+from src.detection import detect_stars, TakeBestKStars
 from astropy.coordinates import SkyCoord
 import astropy.units as u
 import astrometry
@@ -26,6 +26,7 @@ def main(args):
     for file in args.input:
 
         input_path = Path(file)
+        
 
         image, imagergb = load_image(file, args.green)
 
@@ -92,10 +93,11 @@ def main(args):
             output_path = Path(args.output)
 
         if args.output and solution.has_match():
+            acqdate, exptime = get_acquisition_time(file)
             if args.outputrgb is False:
-                SaveToFITSwcs(image,output_path,solution.best_match().astropy_wcs())
+                SaveToFITSwcs(image,output_path,solution.best_match().astropy_wcs(), date=acqdate, exptime=exptime)
             else:
-                SaveToFITSwcs(imagergb,output_path,solution.best_match().astropy_wcs(), True)
+                SaveToFITSwcs(imagergb,output_path,solution.best_match().astropy_wcs(), True, date=acqdate, exptime=exptime)
 
         return None
 

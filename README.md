@@ -62,6 +62,20 @@ Blind solve, fits output in the same directory, json output
 |`Center RA`|HMS|
 |`Center DEC`|DMS|
 |`Pixel Scale`|"/px|
+
+# Library use
+To use this package inside a python script, after installing it you can just 
+```python
+from dslrplatesolver import solve
+#solve(
+#     input: Any,
+#     ra: Any,
+#     dec: Any,
+#     target: Any,
+#     r: Any,
+#     blind: bool = False
+# ) -> list
+```
 ## Work in progress
 **Note:** This is a work in progress.<br>
 This library is optimized to work with pixel scales around 1 "/pixel. It should be enough for most of the amateur astronomy photos taken with dsrl. Let me know through Issues if you need an extension of the pxscale range.
